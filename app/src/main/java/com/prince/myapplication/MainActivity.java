@@ -1,10 +1,8 @@
 package com.prince.myapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,18 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    EditText edtUser, edtPass;
-    Button btn;
-    TextView txtv;
+    Button register, login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,44 +26,21 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        register = findViewById(R.id.register);
+        login = findViewById(R.id.login);
 
-        edtUser = findViewById(R.id.edt_user);
-        edtPass = findViewById(R.id.edt_pass);
-        btn = findViewById(R.id.btn);
-        txtv = findViewById(R.id.txtv);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String strUser = edtUser.getText().toString();
-                String strPass = edtPass.getText().toString();
-                if (strUser.isEmpty() || strPass.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Fields are Empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = getIntent();
-                    Bundle b = intent.getExtras();
-                    String username = b.getString("strusername");
-                    String password = b.getString("strpassword");
-                    String name = b.getString("strname");
-
-                    if (strUser.equals(username) && strPass.equals(password)){
-                        Bundle b2 = new Bundle();
-                        b2.putString("name", name);
-                        Intent intent2 = new Intent(getApplicationContext(), Welcome.class);
-                        intent2.putExtras(b2);
-                        startActivity(intent2);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Login Details are Invalid", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
-
-        txtv.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
+                startActivity(intent);
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                 startActivity(intent);
             }
         });
@@ -133,7 +104,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.pi) {
-            // Handle the camera action
+            String url = "https://pi360.net/site/";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_camera) {

@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
                     b.putString("strpassword", strpassword);
                     b.putString("strusername", strusername);
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                     intent.putExtras(b);
                     startActivity(intent);
                 }

@@ -7,38 +7,19 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/edt_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Username"
-        android:textAlignment="center" />
-
-    <EditText
-        android:id="@+id/edt_pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Password"
-        android:textAlignment="center" />
+    android:orientation="vertical"
+    android:gravity="center">
 
     <Button
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
+        android:id="@+id/register"
+        android:layout_width="147dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Login" />
+        android:text="Register" />
 
-    <TextView
-        android:id="@+id/txtv"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/login"
+        android:layout_width="147dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Register now"
-        android:textAlignment="center" />
+        android:text="Login" />
 
 </LinearLayout>
