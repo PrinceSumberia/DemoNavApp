@@ -15,11 +15,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Button capture, upload;
-    EditText editText;
+
+
+    EditText edtUser, edtPass;
+    Button btn;
+    TextView txtv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +32,48 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        capture = findViewById(R.id.capture);
-        upload = findViewById(R.id.upload);
-        editText = findViewById(R.id.edit_text);
+
+        edtUser = findViewById(R.id.edt_user);
+        edtPass = findViewById(R.id.edt_pass);
+        btn = findViewById(R.id.btn);
+        txtv = findViewById(R.id.txtv);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strUser = edtUser.getText().toString();
+                String strPass = edtPass.getText().toString();
+                if (strUser.isEmpty() || strPass.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Fields are Empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = getIntent();
+                    Bundle b = intent.getExtras();
+                    String username = b.getString("strusername");
+                    String password = b.getString("strpassword");
+                    String name = b.getString("strname");
+
+                    if (strUser.equals(username) && strPass.equals(password)){
+                        Bundle b2 = new Bundle();
+                        b2.putString("name", name);
+                        Intent intent2 = new Intent(getApplicationContext(), Welcome.class);
+                        intent2.putExtras(b2);
+                        startActivity(intent2);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login Details are Invalid", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
+        txtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Register.class);
+                startActivity(intent);
+            }
+        });
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -39,13 +83,6 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        capture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
